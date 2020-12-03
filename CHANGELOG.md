@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.1](https://github.com/agpenton/chef-ubuntu-base/tree/v0.1.1) (2020-12-03)
+
+[Full Changelog](https://github.com/agpenton/chef-ubuntu-base/compare/v1.0.1...v0.1.1)
+
 ## [v1.0.1](https://github.com/agpenton/chef-ubuntu-base/tree/v1.0.1) (2020-12-03)
 
 [Full Changelog](https://github.com/agpenton/chef-ubuntu-base/compare/3e16aff8ad86b00d1cb12dcba558308b81c4a312...v1.0.1)
