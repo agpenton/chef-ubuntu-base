@@ -56,8 +56,8 @@ begin
   require "github_changelog_generator/task"
   GitHubChangelogGenerator::RakeTask.new :changelog do |config|
     config.future_release = "v#{metadata.version}"
-    config.user = "dev-sec"
-    config.project = "chef-os-hardening"
+    config.user = "agpenton"
+    config.project = "chef-ubuntu-base"
   end
 rescue LoadError
   puts ">>>>> GitHub Changelog Generator not loaded, omitting tasks"

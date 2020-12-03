@@ -5,7 +5,7 @@ maintainer "Asdrubal Gonzalez"
 maintainer_email "agpenton@gmail.com"
 license "MIT"
 description "Installs/Configures chef-ubuntu-base"
-version "0.1.0"
+version "0.1.1"
 chef_version ">= 15.0"
 
 # The `issues_url` points to the location where issues for this cookbook are
