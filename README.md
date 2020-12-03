@@ -1,4 +1,3 @@
-# powerdata-base
+# chef-ubuntu-base
 
 TODO: Enter the cookbook description here.
-

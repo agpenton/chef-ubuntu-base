@@ -1,6 +1,6 @@
-# powerdata-base CHANGELOG
+# chef-ubuntu-base CHANGELOG
 
-This file is used to list changes made in each version of the powerdata-base cookbook.
+This file is used to list changes made in each version of the chef-ubuntu-base cookbook.
 
 ## 0.1.0
 

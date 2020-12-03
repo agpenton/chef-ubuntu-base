@@ -28,6 +28,7 @@ TAGS*
 tmtags
 .vscode
 .editorconfig
+.idea/
 
 ## COMPILED ##
 ##############

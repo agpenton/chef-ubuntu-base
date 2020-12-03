@@ -1,11 +1,11 @@
-# InSpec test for recipe powerdata-base::default
+# InSpec test for recipe chef-ubuntu-base::default
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
 unless os.windows?
   # This is an example test, replace with your own test.
-  describe user('root'), :skip do
+  describe user("root"), :skip do
     it { should exist }
   end
 end
