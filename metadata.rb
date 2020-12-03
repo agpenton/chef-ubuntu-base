@@ -1,6 +1,6 @@
 name "chef-ubuntu-base"
 maintainer "Asdrubal Gonzalez"
-maintainer_email "asdrubal.gonzalez@powerdata.de"
+maintainer_email "agpenton@gmail.com"
 license "MIT"
 description "Installs/Configures chef-ubuntu-base"
 version "0.1.0"

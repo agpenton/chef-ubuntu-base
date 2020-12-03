@@ -27,12 +27,6 @@ platforms:
       network:
         - ["private_network", {ip: "192.168.33.33"}]
 
-#  - name: centos-8
-#  - name: windows-10
-#    driver:
-#      name: vagrant
-#      box: gusztavvargadr/windows-10
-
 suites:
   - name: default
     verifier:
