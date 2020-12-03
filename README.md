@@ -1,3 +1,3 @@
 # chef-ubuntu-base
 
-TODO: Enter the cookbook description here.
+This Cookbook is for Provisioning Ubuntu 20.04 with my Work ENV.

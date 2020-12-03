@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: chef-ubuntu-base
 # Spec:: default

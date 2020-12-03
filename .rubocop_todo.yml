@@ -12,3 +12,6 @@
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/FileName:
+  Enabled: false
