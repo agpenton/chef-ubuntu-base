@@ -277,18 +277,18 @@ node.default["Software"]["remove"].each do |rem|
     action :purge
   end
 end
-cookbook_file "/usr/share/zsh/manjaro-zsh-config" do
-  source "manjaro-zsh-config"
-  mode "0644"
-  action :create
-  not_if { ::File.exist?("/usr/share/zsh/manjaro-zsh-config") }
-end
-cookbook_file "/usr/share/zsh/manjaro-zsh-prompt" do
-  source "manjaro-zsh-prompt"
-  mode "0644"
-  action :create
-  not_if { ::File.exist?("/usr/share/zsh/manjaro-zsh-prompt") }
-end
+# cookbook_file "/usr/share/zsh/manjaro-zsh-config" do
+#   source "manjaro-zsh-config"
+#   mode "0644"
+#   action :create
+#   not_if { ::File.exist?("/usr/share/zsh/manjaro-zsh-config") }
+# end
+# cookbook_file "/usr/share/zsh/manjaro-zsh-prompt" do
+#   source "manjaro-zsh-prompt"
+#   mode "0644"
+#   action :create
+#   not_if { ::File.exist?("/usr/share/zsh/manjaro-zsh-prompt") }
+# end
 cookbook_file "#{ENV['HOME']}/.zshrc" do
   source "zshrc"
   mode "0644"
@@ -299,9 +299,11 @@ cookbook_file "#{ENV['HOME']}/tools/zsh.zip" do
   mode "0755"
   action :create
 end
+# execute "sudo rm -Rf /usr/share/zsh/*"
 archive_file "zsh.zip" do
   path "#{ENV['HOME']}/tools/zsh.zip"
   destination "/usr/share/zsh"
+  overwrite true
 end
 
 execute "chsh -s $(which zsh)"
