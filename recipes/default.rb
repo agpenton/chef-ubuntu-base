@@ -27,6 +27,8 @@
 # THE SOFTWARE.
 #
 
+require "etc"
+
 apt_update "update" do
   action :nothing
 end
@@ -99,6 +101,14 @@ apt_repository "virtualbox" do
   key ["https://packagecloud.io/slacktechnologies/slack/gpgkey", "https://www.virtualbox.org/download/oracle_vbox.asc"]
   trusted true
 end
+# execute "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/packages.microsoft.gpg"
+#
+# template "/etc/apt/sources.list.d/vscode.list" do
+#   source "vscode.list.erb"
+#   owner "root"
+#   group "root"
+#   mode "0644"
+# end
 
 log "Update the system packages"
 
@@ -161,6 +171,13 @@ remote_file "#{ENV['HOME']}/tools/dbeaver-ce_latest_amd64.deb" do
   mode "0755"
   action :create
 end
+remote_file "#{ENV['HOME']}/tools/code_1.51.1-1605051630_amd64.deb" do
+  source "https://az764295.vo.msecnd.net/stable/e5a624b788d92b8d34d1392e4c4d9789406efe8f/code_1.51.1-1605051630_amd64.deb"
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
+end
 # ver = %x(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 
 remote_file "/usr/local/bin/kubectl" do
@@ -170,7 +187,7 @@ remote_file "/usr/local/bin/kubectl" do
   group "root"
   mode "0777"
   action :create
-  not_if {::File.exist?("/usr/local/bin/kubectl")}
+  not_if { ::File.exist?("/usr/local/bin/kubectl") }
 end
 remote_file "/usr/local/bin/minikube" do
   source "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
@@ -178,10 +195,17 @@ remote_file "/usr/local/bin/minikube" do
   group "root"
   mode "0777"
   action :create
-  not_if {::File.exist?("/usr/local/bin/minikube")}
+  not_if { ::File.exist?("/usr/local/bin/minikube") }
 end
 remote_file "#{ENV['HOME']}/tools/installer_linux" do
   source "https://storage.googleapis.com/golang/getgo/installer_linux"
+  owner "root"
+  group "root"
+  mode "0777"
+  action :create
+end
+remote_file "#{ENV['HOME']}/tools/teams_1.3.00.30857_amd64.deb" do
+  source "https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.30857_amd64.deb"
   owner "root"
   group "root"
   mode "0777"
@@ -208,6 +232,14 @@ execute "install_Dbeaver" do
   command "sudo apt install #{ENV['HOME']}/tools/dbeaver-ce_latest_amd64.deb -y"
   # not_if { ::File.exist?("/usr/bin/zoom") }
 end
+execute "install_MS_Teams" do
+  command "sudo apt install #{ENV['HOME']}/tools/teams_1.3.00.30857_amd64.deb -y"
+  not_if { ::File.exist?("/usr/bin/teams") }
+end
+execute "install_VSCODE" do
+  command "sudo apt install #{ENV['HOME']}/tools/code_1.51.1-1605051630_amd64.deb -y"
+  not_if { ::File.exist?("/usr/bin/code") }
+end
 # execute "install_Dbeaver" do
 #   command "sudo apt install #{ENV['HOME']}/toolsdbeaver-ce_latest_amd64.deb -y"
 #   # not_if { ::File.exist?("/usr/bin/zoom") }
@@ -215,8 +247,6 @@ end
 # execute "install_golang" do
 #   command "sudo sh #{ENV['HOME']}/tools/installer_linux"
 # end
-
-
 
 execute "pip3 install pip --upgrade"
 
@@ -264,7 +294,7 @@ end
 
 service "docker" do
   supports status: true, restart: true, reload: true
-  action %i[enable start]
+  action %i(enable start)
 end
 
 node.default["Software"]["atom"]["extension"].each do |apm|
@@ -294,16 +324,24 @@ cookbook_file "#{ENV['HOME']}/.zshrc" do
   mode "0644"
   action :create
 end
-cookbook_file "#{ENV['HOME']}/tools/zsh.zip" do
-  source "zsh.zip"
-  mode "0755"
-  action :create
+# cookbook_file "#{ENV['HOME']}/tools/zsh.zip" do
+#   source "zsh.zip"
+#   mode "0755"
+#   action :create
+# end
+execute "sudo rm -Rf /usr/share/zsh"
+# archive_file "zsh.zip" do
+#   path "#{ENV['HOME']}/tools/zsh.zip"
+#   destination "/usr/share/zsh"
+#   overwrite true
+# end
+git "/usr/share/zsh" do
+  repository "https://github.com/agpenton/zsh-files.git"
+  action :sync
 end
-# execute "sudo rm -Rf /usr/share/zsh/*"
-archive_file "zsh.zip" do
-  path "#{ENV['HOME']}/tools/zsh.zip"
-  destination "/usr/share/zsh"
-  overwrite true
-end
-
-execute "chsh -s $(which zsh)"
+# %w[1000...1010].each do |ousers|
+#   execute "sudo chsh -s $(which zsh) #{ousers}"
+# end
+# vgr = Etc.getpwnam("vagrant").uid
+execute "sudo chsh -s $(which zsh) #{ENV["USER"]}"
+execute "sudo chsh -s $(which zsh) #{node.default["user"]}"

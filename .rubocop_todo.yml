@@ -10,8 +10,21 @@
 # Cop supports --auto-correct.
 # Configuration parameters: ConsistentQuotesInMultiline.
 # SupportedStyles: single_quotes, double_quotes
+AllCops:
+  Exclude:
+    - 'attributes/default.rb'
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: "()"
+    "%i": "()"
+    "%I": "[]"
+    "%r": "{}"
+    "%w": "[]"
+    "%W": "[]"
 
 Style/FileName:
   Enabled: false

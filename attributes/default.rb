@@ -10,6 +10,7 @@ default["Software"]["virtualization"]["docker"] = %w[docker-ce docker-ce-cli con
 default["Software"]["atom"]["extension"] = %w[atom-ide-ui atom-typescript language-chef script]
 default["Software"]["hypervisor"] = %w[virtualbox-6.1]
 default["Software"]["pip"] = %w[poetry cfn-flip taskcat]
+default["user"] = "dru"
 # default["Software"]["remote"] = %w[
 #   https://zoom.us/client/latest/zoom_amd64.deb\
 #   https://storage.googleapis.com/golang/getgo/installer_linux
